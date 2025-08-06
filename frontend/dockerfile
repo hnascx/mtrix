@@ -1,0 +1,22 @@
+FROM node:20-alpine
+
+# Install pnpm
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
+RUN corepack enable
+
+WORKDIR /app
+
+# Next.js collects anonymous telemetry data about general usage.
+# Learn more here: https://nextjs.org/telemetry
+ENV NEXT_TELEMETRY_DISABLED 1
+ENV NODE_ENV development
+
+# Files required for dependency installation
+COPY package.json pnpm-lock.yaml* ./
+RUN pnpm install
+
+COPY . .
+
+EXPOSE 3000
+CMD ["pnpm", "dev"]
