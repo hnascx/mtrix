@@ -27,12 +27,12 @@ export function QuantitySelector({
   }
 
   return (
-    <div className="flex items-center border-y border-spacing-0 border-primary rounded-sm">
+    <div className="flex items-center border-y border-spacing-0 border-secondary rounded-sm">
       <Button
         size="small"
         onClick={() => handleQuantityChange(quantity - 1)}
         disabled={quantity <= minQuantity}
-        className="min-w-0 p-2 bg-primary text-white rounded-tl-sm rounded-bl-sm rounded-tr-none rounded-br-none hover:bg-primary/80"
+        className="min-w-0 p-2 bg-secondary text-white rounded-tl-sm rounded-bl-sm rounded-tr-none rounded-br-none hover:bg-secondary/80"
       >
         <Minus size={16} />
       </Button>
@@ -59,7 +59,7 @@ export function QuantitySelector({
         size="small"
         onClick={() => handleQuantityChange(quantity + 1)}
         disabled={quantity >= maxQuantity}
-        className="min-w-0 p-2 bg-primary text-white rounded-tr-sm rounded-br-sm rounded-tl-none rounded-bl-none hover:bg-primary/80"
+        className="min-w-0 p-2 bg-secondary text-white rounded-tr-sm rounded-br-sm rounded-tl-none rounded-bl-none hover:bg-secondary/80"
       >
         <Plus size={16} />
       </Button>

@@ -23,7 +23,7 @@ export function Search({
         placeholder="Busque por título ou descrição..."
         value={searchText}
         onChange={(e) => onSearchChange(e.target.value)}
-        className="bg-transparent"
+        className="bg-transparent [&_.MuiOutlinedInput-root.Mui-focused_fieldset]:border-primary"
       />
       <TextField
         fullWidth
@@ -34,7 +34,7 @@ export function Search({
         SelectProps={{
           native: true,
         }}
-        className="bg-transparent"
+        className="bg-transparent [&_.MuiOutlinedInput-root.Mui-focused_fieldset]:border-primary"
       >
         <option value="">Todas</option>
         {availableTags.map((tag) => (

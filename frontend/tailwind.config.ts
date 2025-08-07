@@ -18,6 +18,12 @@ export default {
         primary: {
           DEFAULT: "#08181A",
         },
+        secondary: {
+          DEFAULT: "#244246",
+        },
+        tertiary: {
+          DEFAULT: "#c5f911",
+        },
       },
       borderRadius: {
         lg: "0.5rem",

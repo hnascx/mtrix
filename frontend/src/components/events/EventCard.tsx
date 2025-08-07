@@ -1,5 +1,6 @@
 "use client"
 
+import { useCart } from "@/contexts/CartContext"
 import { formatCurrency } from "@/lib/format-currency"
 import { Event } from "@/types/event"
 import {
@@ -11,7 +12,6 @@ import {
   Typography,
 } from "@mui/material"
 import { CalendarDays, MapPin, ShoppingCart, Tag } from "lucide-react"
-import { useRouter } from "next/navigation"
 import { useState } from "react"
 import { QuantitySelector } from "../common/QuantitySelector"
 
@@ -20,32 +20,32 @@ interface EventCardProps {
 }
 
 export function EventCard({ event }: EventCardProps) {
-  const router = useRouter()
   const [quantity, setQuantity] = useState(1)
+  const { addToCart } = useCart()
 
   const handleAddToCart = () => {
-    router.push(`/checkout/${event.id}?quantity=${quantity}`)
+    addToCart(event, quantity)
   }
 
   return (
-    <Card className="h-full flex flex-col mb-3 text-primary">
+    <Card className="h-full flex flex-col mb-2 text-primary rounded-lg shadow-none border border-primary border-opacity-20">
       <CardMedia
         component="img"
         image={event.imageUrl}
         alt={event.title}
         className="h-52 object-cover"
       />
-      <CardContent className="flex flex-col h-full py-3">
-        <Stack className="gap-1">
-          <Typography className="text-heading-md text-center">
+      <CardContent className="flex flex-col h-full px-6 py-4">
+        <Stack className="gap-2">
+          <Typography className="text-heading-md text-center font-bold">
             {event.title}
           </Typography>
 
-          <Typography className="text-body-md text-primary text-opacity-70">
+          <Typography className="text-body-md text-primary ">
             {event.description}
           </Typography>
 
-          <Stack className="gap-1 mt-2">
+          <Stack className="gap-1 mt-2 ">
             <div className="flex items-center gap-2">
               <CalendarDays size={16} />
               <Typography className="text-body-sm">
@@ -64,7 +64,7 @@ export function EventCard({ event }: EventCardProps) {
             </div>
           </Stack>
 
-          <div className="flex items-center justify-between gap-2 mt-4">
+          <div className="flex items-center justify-between gap-2 mt-3">
             <div>
               <Typography className="text-body-md text-primary font-semibold">
                 Preço: {formatCurrency(event.price)}
@@ -82,7 +82,7 @@ export function EventCard({ event }: EventCardProps) {
                   variant="contained"
                   onClick={handleAddToCart}
                   size="small"
-                  className="flex items-center gap-1 min-w-0 px-3 h-10 text-body-sm bg-primary text-white hover:bg-primary/80"
+                  className="flex items-center gap-1 min-w-0 px-3 h-10 text-body-sm bg-secondary text-white shadow-none hover:bg-secondary/80 hover:shadow-none"
                 >
                   <ShoppingCart size={18} className="text-white" />
                 </Button>
