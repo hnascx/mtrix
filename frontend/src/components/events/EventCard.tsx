@@ -13,6 +13,7 @@ import {
 } from "@mui/material"
 import { CalendarDays, MapPin, ShoppingCart, Tag } from "lucide-react"
 import { useState } from "react"
+import { toast } from "sonner"
 import { QuantitySelector } from "../common/QuantitySelector"
 
 interface EventCardProps {
@@ -21,14 +22,23 @@ interface EventCardProps {
 
 export function EventCard({ event }: EventCardProps) {
   const [quantity, setQuantity] = useState(1)
+  const [isAdding, setIsAdding] = useState(false)
   const { addToCart } = useCart()
 
-  const handleAddToCart = () => {
+  const handleAddToCart = async () => {
+    setIsAdding(true)
+
+    // Simula um delay para mostrar o loading
+    await new Promise((resolve) => setTimeout(resolve, 500))
+
     addToCart(event, quantity)
+    toast.success(`${quantity} ingresso(s) adicionado(s) ao carrinho!`)
+    setQuantity(1)
+    setIsAdding(false)
   }
 
   return (
-    <Card className="h-full flex flex-col mb-2 text-primary rounded-lg shadow-none border border-primary border-opacity-20">
+    <Card className="h-full flex flex-col mb-2 text-primary rounded-lg shadow-none border border-primary border-opacity-20 transition-all duration-200 hover:shadow-md hover:border-opacity-40">
       <CardMedia
         component="img"
         image={event.imageUrl}
@@ -81,10 +91,15 @@ export function EventCard({ event }: EventCardProps) {
                 <Button
                   variant="contained"
                   onClick={handleAddToCart}
+                  disabled={isAdding}
                   size="small"
-                  className="flex items-center gap-1 min-w-0 px-3 h-10 text-body-sm bg-secondary text-white shadow-none hover:bg-secondary/80 hover:shadow-none"
+                  className="flex items-center justify-center min-w-[40px] w-10 h-10 text-body-sm bg-secondary text-white hover:bg-secondary/80 transition-all duration-200"
                 >
-                  <ShoppingCart size={18} className="text-white" />
+                  {isAdding ? (
+                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                  ) : (
+                    <ShoppingCart size={18} className="text-white" />
+                  )}
                 </Button>
               </div>
             </div>

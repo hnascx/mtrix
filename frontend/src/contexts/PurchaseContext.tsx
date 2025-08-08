@@ -55,7 +55,7 @@ export function PurchaseProvider({ children }: { children: ReactNode }) {
 export function usePurchase() {
   const context = useContext(PurchaseContext)
   if (context === undefined) {
-    throw new Error("usePurchase must be used within a PurchaseProvider")
+    throw new Error("usePurchase deve ser usado dentro de um PurchaseProvider")
   }
   return context
 }

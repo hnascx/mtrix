@@ -1,5 +1,6 @@
 "use client"
 
+import { useFormValidation } from "@/hooks/useFormValidation"
 import {
   Card,
   CardContent,
@@ -11,6 +12,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material"
+import { MaskedInput } from "../common/MaskedInput"
 
 interface CheckoutFormProps {
   formData: {
@@ -28,6 +30,16 @@ interface CheckoutFormProps {
 }
 
 export function CheckoutForm({ formData, onInputChange }: CheckoutFormProps) {
+  const { errors, handleBlur, handleInputChange } = useFormValidation()
+
+  const handleFieldChange = (field: string, value: string) => {
+    handleInputChange(field, value, onInputChange)
+  }
+
+  const handleFieldBlur = (field: string, value: string) => {
+    handleBlur(field, value)
+  }
+
   return (
     <Card className="border border-primary rounded-lg shadow-none border-opacity-20">
       <CardContent className="p-6">
@@ -38,84 +50,126 @@ export function CheckoutForm({ formData, onInputChange }: CheckoutFormProps) {
         <Stack className="gap-4">
           <div className="grid grid-cols-[3fr_1fr] w-full gap-3">
             <TextField
-              fullWidth
               label="Nome Completo"
+              name="fullName"
+              data-field="fullName"
               value={formData.fullName}
-              onChange={(e) => onInputChange("fullName", e.target.value)}
+              onChange={(e) => handleFieldChange("fullName", e.target.value)}
+              onBlur={(e) => handleFieldBlur("fullName", e.target.value)}
+              error={!!errors.fullName}
+              helperText={errors.fullName}
               required
             />
 
-            <TextField
-              fullWidth
+            <MaskedInput
               label="CPF"
+              name="cpf"
+              data-field="cpf"
+              mask="999.999.999-99"
               value={formData.cpf}
-              onChange={(e) => onInputChange("cpf", e.target.value)}
+              onChange={(e) => handleFieldChange("cpf", e.target.value)}
+              onBlur={(e) => handleFieldBlur("cpf", e.target.value)}
+              error={!!errors.cpf}
+              helperText={errors.cpf}
               required
             />
           </div>
 
           <div className="grid grid-cols-[3fr_1fr] w-full gap-3">
             <TextField
-              fullWidth
               label="Email"
+              name="email"
+              data-field="email"
               type="email"
               value={formData.email}
-              onChange={(e) => onInputChange("email", e.target.value)}
+              onChange={(e) => handleFieldChange("email", e.target.value)}
+              onBlur={(e) => handleFieldBlur("email", e.target.value)}
+              error={!!errors.email}
+              helperText={errors.email}
               required
             />
 
-            <TextField
-              fullWidth
+            <MaskedInput
               label="Telefone"
+              name="phone"
+              data-field="phone"
+              mask="(99) 99999-9999"
               value={formData.phone}
-              onChange={(e) => onInputChange("phone", e.target.value)}
+              onChange={(e) => handleFieldChange("phone", e.target.value)}
+              onBlur={(e) => handleFieldBlur("phone", e.target.value)}
+              error={!!errors.phone}
+              helperText={errors.phone}
               required
             />
           </div>
 
           <div className="grid grid-cols-[1fr_3fr] w-full gap-3">
-            <TextField
-              fullWidth
+            <MaskedInput
               label="CEP"
+              name="cep"
+              data-field="cep"
+              mask="99999-999"
               value={formData.cep}
-              onChange={(e) => onInputChange("cep", e.target.value)}
+              onChange={(e) => handleFieldChange("cep", e.target.value)}
+              onBlur={(e) => handleFieldBlur("cep", e.target.value)}
+              error={!!errors.cep}
+              helperText={errors.cep}
               required
             />
 
             <TextField
-              fullWidth
               label="Endereço"
+              name="address"
+              data-field="address"
               value={formData.address}
-              onChange={(e) => onInputChange("address", e.target.value)}
+              onChange={(e) => handleFieldChange("address", e.target.value)}
+              onBlur={(e) => handleFieldBlur("address", e.target.value)}
+              error={!!errors.address}
+              helperText={errors.address}
               required
             />
           </div>
 
           <div className="grid grid-cols-[3fr_1fr] w-full gap-3">
             <TextField
-              fullWidth
               label="Cidade"
+              name="city"
+              data-field="city"
               value={formData.city}
-              onChange={(e) => onInputChange("city", e.target.value)}
+              onChange={(e) => handleFieldChange("city", e.target.value)}
+              onBlur={(e) => handleFieldBlur("city", e.target.value)}
+              error={!!errors.city}
+              helperText={errors.city}
             />
 
             <TextField
-              fullWidth
               label="Estado"
+              name="state"
+              data-field="state"
               value={formData.state}
-              onChange={(e) => onInputChange("state", e.target.value)}
+              onChange={(e) => handleFieldChange("state", e.target.value)}
+              onBlur={(e) => handleFieldBlur("state", e.target.value)}
+              error={!!errors.state}
+              helperText={errors.state}
             />
           </div>
 
-          {/* Método de Pagamento */}
           <div className="w-full">
-            <FormControl className="w-full [&_.MuiOutlinedInput-root.Mui-focused_fieldset]:border-primary" required>
+            <FormControl
+              required
+              error={!!errors.paymentMethod}
+              className="w-full [&_.MuiOutlinedInput-root.Mui-focused_fieldset]:border-primary"
+            >
               <InputLabel>Método de Pagamento</InputLabel>
               <Select
+                name="paymentMethod"
+                data-field="paymentMethod"
                 value={formData.paymentMethod}
                 label="Método de Pagamento"
-                onChange={(e) => onInputChange("paymentMethod", e.target.value)}
-                required
+                onChange={(e) =>
+                  handleFieldChange("paymentMethod", e.target.value)
+                }
+                onBlur={(e) => handleFieldBlur("paymentMethod", e.target.value)}
               >
                 <MenuItem value="credit">Cartão de Crédito</MenuItem>
                 <MenuItem value="debit">Cartão de Débito</MenuItem>

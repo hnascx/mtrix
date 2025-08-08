@@ -58,8 +58,8 @@ export default function ConfirmationPage() {
             <div className="flex flex-row bg-transparent border border-primary/20 rounded-sm p-4 gap-2 mb-4">
               <Ticket size={24} className="text-primary" />
               <Typography className="text-body-md text-primary">
-                Você receberá o ingresso digital por e-mail em breve. No local
-                do evento, basta apresentar o QR Code para entrar.
+                Você receberá o(s) ingresso(s) digital(is) por e-mail em breve.
+                No local do evento, basta apresentar o QR Code para entrar.
               </Typography>
             </div>
 
@@ -128,6 +128,18 @@ export default function ConfirmationPage() {
             <div className="border-t pt-4">
               <div className="flex justify-between items-center mb-2">
                 <Typography className="text-body-lg font-semibold">
+                  Quantidade de ingressos
+                </Typography>
+                <Typography className="text-heading-md font-semibold">
+                  {purchaseData.items.reduce(
+                    (total, item) => total + item.quantity,
+                    0
+                  )}
+                </Typography>
+              </div>
+
+              <div className="flex justify-between items-center mb-2">
+                <Typography className="text-body-lg font-semibold">
                   Forma de Pagamento
                 </Typography>
                 <Typography className="text-heading-md font-semibold">
@@ -149,7 +161,7 @@ export default function ConfirmationPage() {
               <Button
                 variant="contained"
                 onClick={() => router.push("/")}
-                className="w-fit bg-secondary shadow-none hover:bg-secondary/80 hover:shadow-none"
+                className="w-fit bg-secondary hover:bg-secondary/80"
               >
                 Voltar para Eventos
               </Button>

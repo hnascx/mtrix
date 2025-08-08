@@ -3,6 +3,7 @@
 import { CartSummary } from "@/components/checkout/CartSummary"
 import { CheckoutForm } from "@/components/checkout/CheckoutForm"
 import { useCart } from "@/contexts/CartContext"
+import { useCheckoutForm } from "@/contexts/CheckoutFormContext"
 import { usePurchase } from "@/contexts/PurchaseContext"
 import { Button, Container, Typography } from "@mui/material"
 import { useRouter } from "next/navigation"
@@ -11,19 +12,9 @@ import { useState } from "react"
 export default function CheckoutPage() {
   const { getTotalItems, items, clearCart } = useCart()
   const { setPurchaseData } = usePurchase()
+  const { formData, updateFormData, clearFormData } = useCheckoutForm()
   const router = useRouter()
-
-  const [formData, setFormData] = useState({
-    fullName: "",
-    cpf: "",
-    email: "",
-    phone: "",
-    cep: "",
-    address: "",
-    city: "",
-    state: "",
-    paymentMethod: "",
-  })
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   if (getTotalItems() === 0) {
     return (
@@ -45,14 +36,13 @@ export default function CheckoutPage() {
     )
   }
 
-  const handleInputChange = (field: string, value: string) => {
-    setFormData((prev) => ({ ...prev, [field]: value }))
-  }
-
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
-    // Salva os dados da compra no contexto
+    setIsSubmitting(true)
+
+    await new Promise((resolve) => setTimeout(resolve, 1000))
+
     setPurchaseData({
       customerName: formData.fullName,
       address: formData.address,
@@ -62,8 +52,13 @@ export default function CheckoutPage() {
       items: items,
     })
 
-    clearCart()
+    clearFormData()
+
     router.push("/confirmation")
+
+    setTimeout(() => {
+      clearCart()
+    }, 100)
   }
 
   return (
@@ -71,13 +66,10 @@ export default function CheckoutPage() {
       <form onSubmit={handleSubmit} className="pt-10">
         <div className="grid grid-cols-[60%_1fr] gap-8">
           <div>
-            <CheckoutForm
-              formData={formData}
-              onInputChange={handleInputChange}
-            />
+            <CheckoutForm formData={formData} onInputChange={updateFormData} />
           </div>
           <div>
-            <CartSummary />
+            <CartSummary isSubmitting={isSubmitting} />
           </div>
         </div>
       </form>
