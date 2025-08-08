@@ -16,7 +16,7 @@ export default function CheckoutPage() {
   const router = useRouter()
   const [isSubmitting, setIsSubmitting] = useState(false)
 
-  if (getTotalItems() === 0) {
+  if (getTotalItems() === 0 && !isSubmitting) {
     return (
       <Container className="flex flex-col min-h-screen justify-center items-center py-20">
         <Typography className="text-heading-lg font-medium text-center mb-4">
@@ -66,7 +66,7 @@ export default function CheckoutPage() {
 
     setTimeout(() => {
       clearCart()
-    }, 100)
+    }, 500)
   }
 
   return (
