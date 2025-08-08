@@ -51,37 +51,6 @@ Nesse projeto é desenvolvido o front-end completo de um sistema de compra de in
 - **Toast notifications** para feedback
 - **Confirmation dialogs** para ações destrutivas
 
-## 🏗️ Arquitetura do Projeto
-
-frontend/
-├── src/
-│ ├── app/ # App Router (Next.js 15)
-│ │ ├── layout.tsx # Layout principal
-│ │ ├── page.tsx # Página de eventos
-│ │ ├── checkout/ # Página de checkout
-│ │ ├── confirmation/ # Página de confirmação
-│ │ └── providers.tsx # Providers do Material UI
-│ ├── components/ # Componentes React
-│ │ ├── common/ # Componentes reutilizáveis
-│ │ ├── events/ # Componentes de eventos
-│ │ └── checkout/ # Componentes de checkout
-│ ├── contexts/ # Context API
-│ │ ├── CartContext.tsx # Gerenciamento do carrinho
-│ │ ├── PurchaseContext.tsx # Dados da compra
-│ │ └── CheckoutFormContext.tsx # Dados do formulário
-│ ├── hooks/ # Hooks customizados
-│ │ ├── useInfiniteScroll.ts # Scroll infinito
-│ │ └── useFormValidation.ts # Validação de formulário
-│ ├── lib/ # Utilitários
-│ │ ├── format-currency.ts # Formatação de moeda
-│ │ └── mock-data.ts # Dados mockados
-│ └── types/ # Definições TypeScript
-│ └── event.ts # Interface do evento
-├── public/ # Arquivos estáticos
-├── Dockerfile # Configuração Docker
-└── package.json # Dependências
-
-
 ## Como Executar
 
 ### Pré-requisitos
