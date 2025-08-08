@@ -28,7 +28,6 @@ export function EventCard({ event }: EventCardProps) {
   const handleAddToCart = async () => {
     setIsAdding(true)
 
-    // Simula um delay para mostrar o loading
     await new Promise((resolve) => setTimeout(resolve, 500))
 
     addToCart(event, quantity)

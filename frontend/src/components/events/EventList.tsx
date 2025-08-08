@@ -13,9 +13,9 @@ export function EventList({ events }: EventListProps) {
   )
 
   return (
-    <div className="grid grid-cols-12 gap-3">
+    <div className="grid grid-cols-1 gap-5 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
       {uniqueEvents.map((event) => (
-        <div key={event.id} className="col-span-12 sm:col-span-6 md:col-span-4">
+        <div key={event.id}>
           <EventCard event={event} />
         </div>
       ))}

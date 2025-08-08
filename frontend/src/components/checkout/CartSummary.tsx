@@ -70,18 +70,17 @@ export function CartSummary({ isSubmitting = false }: CartSummaryProps) {
                 />
 
                 <div className="flex-1">
-                  <Typography variant="subtitle2" className="font-medium">
+                  <Typography className="text-body-md font-medium">
                     {item.event.title}
                   </Typography>
-                  <Typography variant="body2" color="text.secondary">
+                  <Typography className="text-body-sm text-secondary">
                     {item.event.date} às {item.event.time}
                   </Typography>
-                  <Typography variant="body2" color="text.secondary">
+                  <Typography className="text-body-sm text-secondary">
                     {item.event.location}
                   </Typography>
 
-                  <div className="flex items-center gap-2 mt-2">
-                    <Typography variant="body2">Qtd:</Typography>
+                  <div className="flex items-center gap-2 mt-3">
                     <QuantitySelector
                       initialQuantity={item.quantity}
                       onQuantityChange={(quantity) =>
@@ -104,7 +103,7 @@ export function CartSummary({ isSubmitting = false }: CartSummaryProps) {
                 </div>
 
                 <div className="text-right">
-                  <Typography variant="subtitle2" className="font-medium">
+                  <Typography className="text-body-md font-bold">
                     {formatCurrency(item.event.price * item.quantity)}
                   </Typography>
                 </div>
@@ -114,10 +113,10 @@ export function CartSummary({ isSubmitting = false }: CartSummaryProps) {
 
           <Box className="border-t pt-4">
             <div className="flex justify-between items-center mb-4">
-              <Typography variant="h6" className="font-semibold">
+              <Typography className="text-heading-md font-semibold">
                 Total ({getTotalItems()} itens)
               </Typography>
-              <Typography variant="h6" className="font-semibold text-primary">
+              <Typography className="text-heading-md font-bold">
                 {formatCurrency(getTotalPrice())}
               </Typography>
             </div>

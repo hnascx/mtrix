@@ -16,17 +16,15 @@ export function Search({
   availableTags,
 }: SearchProps) {
   return (
-    <Box className="grid grid-cols-[8fr_1fr] w-full gap-4 pt-10 pb-8">
+    <Box className="grid sm:grid-cols-[8fr_1fr] w-full gap-4 sm:pt-10 pb-8">
       <TextField
-        fullWidth
         variant="outlined"
         placeholder="Busque por título ou descrição..."
         value={searchText}
         onChange={(e) => onSearchChange(e.target.value)}
-        className="bg-transparent [&_.MuiOutlinedInput-root.Mui-focused_fieldset]:border-primary"
+        className="w-full bg-transparent [&_.MuiOutlinedInput-root.Mui-focused_fieldset]:border-primary"
       />
       <TextField
-        fullWidth
         variant="outlined"
         value={tagFilter}
         onChange={(e) => onTagFilterChange(e.target.value)}
@@ -34,7 +32,7 @@ export function Search({
         SelectProps={{
           native: true,
         }}
-        className="bg-transparent [&_.MuiOutlinedInput-root.Mui-focused_fieldset]:border-primary"
+        className="w-full bg-transparent [&_.MuiOutlinedInput-root.Mui-focused_fieldset]:border-primary"
       >
         <option value="">Todas</option>
         {availableTags.map((tag) => (

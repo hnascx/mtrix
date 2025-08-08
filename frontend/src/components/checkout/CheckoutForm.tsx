@@ -48,7 +48,7 @@ export function CheckoutForm({ formData, onInputChange }: CheckoutFormProps) {
         </Typography>
 
         <Stack className="gap-4">
-          <div className="grid grid-cols-[3fr_1fr] w-full gap-3">
+          <div className="grid grid-cols-[60%_1fr] md:grid-cols-[3fr_1fr] w-full gap-3">
             <TextField
               label="Nome Completo"
               name="fullName"
@@ -75,7 +75,7 @@ export function CheckoutForm({ formData, onInputChange }: CheckoutFormProps) {
             />
           </div>
 
-          <div className="grid grid-cols-[3fr_1fr] w-full gap-3">
+          <div className="grid grid-cols-[60%_1fr] md:grid-cols-[3fr_1fr] w-full gap-3">
             <TextField
               label="Email"
               name="email"
@@ -103,7 +103,7 @@ export function CheckoutForm({ formData, onInputChange }: CheckoutFormProps) {
             />
           </div>
 
-          <div className="grid grid-cols-[1fr_3fr] w-full gap-3">
+          <div className="grid grid-cols-[30%_1fr] md:grid-cols-[1fr_3fr] w-full gap-3">
             <MaskedInput
               label="CEP"
               name="cep"
@@ -130,7 +130,7 @@ export function CheckoutForm({ formData, onInputChange }: CheckoutFormProps) {
             />
           </div>
 
-          <div className="grid grid-cols-[3fr_1fr] w-full gap-3">
+          <div className="grid grid-cols-[60%_1fr] md:grid-cols-[3fr_1fr] w-full gap-3">
             <TextField
               label="Cidade"
               name="city"

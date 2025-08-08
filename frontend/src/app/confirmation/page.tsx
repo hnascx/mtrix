@@ -47,7 +47,7 @@ export default function ConfirmationPage() {
   }
 
   return (
-    <Container className="flex flex-col min-h-screen py-28">
+    <Container className="flex flex-col min-h-screen -my-2 md:my-0 py-20 md:py-28">
       <Card className="border border-primary rounded-lg shadow-none border-opacity-20 mt-2">
         <CardContent className="p-6">
           <Typography className="text-heading-md font-bold text-center mb-6">
@@ -75,7 +75,7 @@ export default function ConfirmationPage() {
                   >
                     <CardContent className="p-4">
                       <div className="flex gap-4">
-                        <div className="relative w-32 h-32">
+                        <div className="relative w-20 h-20 md:w-32 md:h-32">
                           <Image
                             src={item.event.imageUrl}
                             alt={item.event.title}
@@ -113,7 +113,7 @@ export default function ConfirmationPage() {
                               {item.quantity}{" "}
                               {item.quantity === 1 ? "ingresso" : "ingressos"}
                             </Typography>
-                            <Typography className="text-body-md font-semibold">
+                            <Typography className="text-body-md">
                               {formatCurrency(item.event.price * item.quantity)}
                             </Typography>
                           </div>
@@ -130,7 +130,7 @@ export default function ConfirmationPage() {
                 <Typography className="text-body-lg font-semibold">
                   Quantidade de ingressos
                 </Typography>
-                <Typography className="text-heading-md font-semibold">
+                <Typography className="md:text-heading-md font-semibold">
                   {purchaseData.items.reduce(
                     (total, item) => total + item.quantity,
                     0
@@ -142,7 +142,7 @@ export default function ConfirmationPage() {
                 <Typography className="text-body-lg font-semibold">
                   Forma de Pagamento
                 </Typography>
-                <Typography className="text-heading-md font-semibold">
+                <Typography className="md:text-heading-md font-semibold">
                   {getPaymentMethodText(purchaseData.paymentMethod)}
                 </Typography>
               </div>
@@ -151,7 +151,7 @@ export default function ConfirmationPage() {
                 <Typography className="text-body-lg font-semibold">
                   Valor total
                 </Typography>
-                <Typography className="text-heading-md font-semibold">
+                <Typography className="md:text-heading-md font-semibold">
                   {formatCurrency(totalAmount)}
                 </Typography>
               </div>

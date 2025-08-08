@@ -29,37 +29,43 @@ export function Header() {
       position="fixed"
       className="bg-background shadow-none border-b border-primary border-opacity-10"
     >
-      <Container className="my-3 px-0 max-w-screen-1xl">
-        <Toolbar className="flex justify-between">
-          <section className="flex flex-row justify-between items-center gap-4">
-            <Link href="/">
+      <Container className="my-3 px-4 max-w-screen-1xl">
+        <Toolbar className="flex justify-between items-center min-h-0">
+          <section className="flex flex-row justify-between items-center gap-2 sm:gap-4">
+            <Link href="/" className="flex-shrink-0">
               <Image
                 src="/mtrix-logo.svg"
                 alt="MTrix"
-                width={151}
-                height={41}
+                width={100}
+                height={27}
+                className="sm:w-[120px] sm:h-[32px] md:w-[151px] md:h-[41px]"
               />
             </Link>
-            <div className="h-8 w-px bg-primary" />
-            <h1 className="text-heading-md font-bold text-primary">
+            <div className="hidden md:block h-8 w-px bg-primary" />
+            <h1 className="text-sm sm:text-heading-md font-bold text-primary truncate max-w-[150px] sm:max-w-none hidden md:block">
               {getPageTitle()}
             </h1>
           </section>
 
           <section className="text-primary">
-            <ul className="flex flex-row gap-4 items-center">
-              <li className="text-body-md font-medium hover:opacity-60 transition-opacity duration-200">
-                <Link href="/">Eventos</Link>
+            <ul className="flex flex-row gap-2 sm:gap-4 items-center">
+              <li className="text-body-sm sm:text-body-md font-medium hover:opacity-60 transition-opacity duration-200">
+                <Link href="/" className="hidden sm:block">
+                  Eventos
+                </Link>
+                <Link href="/" className="sm:hidden">
+                  Eventos
+                </Link>
               </li>
               <li>
                 <Link href="/checkout" className="flex items-center">
-                  <div className="p-3 bg-secondary text-white rounded hover:bg-secondary/80 transition-all duration-200">
-                    <ShoppingBag size={20} />
+                  <div className="p-2 sm:p-3 bg-secondary text-white rounded hover:bg-secondary/80 transition-all duration-200">
+                    <ShoppingBag size={18} className="sm:w-5 sm:h-5" />
                   </div>
                   {getTotalItems() > 0 && (
                     <Badge
                       badgeContent={getTotalItems()}
-                      className="mb-10 [&_.MuiBadge-badge]:bg-primary [&_.MuiBadge-badge]:text-white [&_.MuiBadge-badge]:font-bold"
+                      className="mb-8 sm:mb-10 [&_.MuiBadge-badge]:bg-primary [&_.MuiBadge-badge]:text-white [&_.MuiBadge-badge]:font-bold [&_.MuiBadge-badge]:text-xs sm:[&_.MuiBadge-badge]:text-sm"
                     />
                   )}
                 </Link>

@@ -19,10 +19,10 @@ export default function CheckoutPage() {
   if (getTotalItems() === 0) {
     return (
       <Container className="flex flex-col min-h-screen justify-center items-center py-20">
-        <Typography variant="h4" className="text-center mb-4">
+        <Typography className="text-heading-lg font-medium text-center mb-4">
           O seu carrinho está vazio :(
         </Typography>
-        <Typography variant="body1" className="text-center mb-8">
+        <Typography className="text-body-md text-center mb-8">
           Adicione alguns ingressos para continuar.
         </Typography>
         <Button
@@ -63,8 +63,8 @@ export default function CheckoutPage() {
 
   return (
     <Container className="flex flex-col min-h-screen py-20">
-      <form onSubmit={handleSubmit} className="pt-10">
-        <div className="grid grid-cols-[60%_1fr] gap-8">
+      <form onSubmit={handleSubmit} className="sm:pt-10">
+        <div className="grid lg:grid-cols-[60%_1fr] gap-8">
           <div>
             <CheckoutForm formData={formData} onInputChange={updateFormData} />
           </div>
