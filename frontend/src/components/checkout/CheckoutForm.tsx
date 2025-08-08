@@ -12,7 +12,6 @@ import {
   TextField,
   Typography,
 } from "@mui/material"
-import { MaskedInput } from "../common/MaskedInput"
 
 interface CheckoutFormProps {
   formData: {
@@ -30,10 +29,10 @@ interface CheckoutFormProps {
 }
 
 export function CheckoutForm({ formData, onInputChange }: CheckoutFormProps) {
-  const { errors, handleBlur, handleInputChange } = useFormValidation()
+  const { errors, handleBlur } = useFormValidation()
 
   const handleFieldChange = (field: string, value: string) => {
-    handleInputChange(field, value, onInputChange)
+    onInputChange(field, value)
   }
 
   const handleFieldBlur = (field: string, value: string) => {
@@ -61,11 +60,10 @@ export function CheckoutForm({ formData, onInputChange }: CheckoutFormProps) {
               required
             />
 
-            <MaskedInput
+            <TextField
               label="CPF"
               name="cpf"
               data-field="cpf"
-              mask="999.999.999-99"
               value={formData.cpf}
               onChange={(e) => handleFieldChange("cpf", e.target.value)}
               onBlur={(e) => handleFieldBlur("cpf", e.target.value)}
@@ -89,11 +87,10 @@ export function CheckoutForm({ formData, onInputChange }: CheckoutFormProps) {
               required
             />
 
-            <MaskedInput
+            <TextField
               label="Telefone"
               name="phone"
               data-field="phone"
-              mask="(99) 99999-9999"
               value={formData.phone}
               onChange={(e) => handleFieldChange("phone", e.target.value)}
               onBlur={(e) => handleFieldBlur("phone", e.target.value)}
@@ -104,11 +101,10 @@ export function CheckoutForm({ formData, onInputChange }: CheckoutFormProps) {
           </div>
 
           <div className="grid grid-cols-[30%_1fr] md:grid-cols-[1fr_3fr] w-full gap-3">
-            <MaskedInput
+            <TextField
               label="CEP"
               name="cep"
               data-field="cep"
-              mask="99999-999"
               value={formData.cep}
               onChange={(e) => handleFieldChange("cep", e.target.value)}
               onBlur={(e) => handleFieldBlur("cep", e.target.value)}

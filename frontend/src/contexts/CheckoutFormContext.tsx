@@ -1,6 +1,12 @@
 "use client"
 
-import { createContext, useContext, useState, ReactNode } from "react"
+import {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from "react"
 
 interface CheckoutFormData {
   fullName: string
@@ -29,31 +35,59 @@ const initialFormData: CheckoutFormData = {
   address: "",
   city: "",
   state: "",
-  paymentMethod: ""
+  paymentMethod: "",
 }
 
-const CheckoutFormContext = createContext<CheckoutFormContextType | undefined>(undefined)
+const STORAGE_KEY = "checkout-form-data"
+
+const CheckoutFormContext = createContext<CheckoutFormContextType | undefined>(
+  undefined
+)
 
 export function CheckoutFormProvider({ children }: { children: ReactNode }) {
   const [formData, setFormData] = useState<CheckoutFormData>(initialFormData)
+  const [isLoaded, setIsLoaded] = useState(false)
+
+  useEffect(() => {
+    try {
+      const savedData = localStorage.getItem(STORAGE_KEY)
+      if (savedData) {
+        const parsedData = JSON.parse(savedData)
+        setFormData(parsedData)
+      }
+    } catch (error) {
+      console.error("Erro ao carregar dados do localStorage:", error)
+    } finally {
+      setIsLoaded(true)
+    }
+  }, [])
 
   const updateFormData = (field: string, value: string) => {
-    setFormData(prev => ({
-      ...prev,
-      [field]: value
-    }))
+    const newFormData = {
+      ...formData,
+      [field]: value,
+    }
+    setFormData(newFormData)
+
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(newFormData))
   }
 
   const clearFormData = () => {
     setFormData(initialFormData)
   }
 
+  if (!isLoaded) {
+    return null
+  }
+
   return (
-    <CheckoutFormContext.Provider value={{
-      formData,
-      updateFormData,
-      clearFormData
-    }}>
+    <CheckoutFormContext.Provider
+      value={{
+        formData,
+        updateFormData,
+        clearFormData,
+      }}
+    >
       {children}
     </CheckoutFormContext.Provider>
   )
@@ -62,7 +96,9 @@ export function CheckoutFormProvider({ children }: { children: ReactNode }) {
 export function useCheckoutForm() {
   const context = useContext(CheckoutFormContext)
   if (context === undefined) {
-    throw new Error("useCheckoutForm deve ser usado dentro de um CheckoutFormProvider")
+    throw new Error(
+      "useCheckoutForm deve ser usado dentro de um CheckoutFormProvider"
+    )
   }
   return context
 }

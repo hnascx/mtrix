@@ -38,8 +38,16 @@ export default function CheckoutPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-
     setIsSubmitting(true)
+
+    const finalData = {
+      ...formData,
+      timestamp: new Date().toISOString(),
+      items: items,
+    }
+
+    localStorage.setItem("checkout-form-data", JSON.stringify(finalData))
+    console.log("Dados finais salvos no localStorage:", finalData)
 
     await new Promise((resolve) => setTimeout(resolve, 1000))
 

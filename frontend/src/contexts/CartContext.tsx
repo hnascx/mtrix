@@ -1,7 +1,13 @@
 "use client"
 
 import { Event } from "@/types/event"
-import { createContext, ReactNode, useContext, useState } from "react"
+import {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from "react"
 
 interface CartItem {
   event: Event
@@ -21,8 +27,35 @@ interface CartContextType {
 
 const CartContext = createContext<CartContextType | undefined>(undefined)
 
+const STORAGE_KEY = "mtrix-cart-data"
+
 export function CartProvider({ children }: { children: ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([])
+  const [isLoaded, setIsLoaded] = useState(false)
+
+  useEffect(() => {
+    try {
+      const savedCart = localStorage.getItem(STORAGE_KEY)
+      if (savedCart) {
+        const parsedCart = JSON.parse(savedCart)
+        setItems(parsedCart)
+      }
+    } catch (error) {
+      console.error("Erro ao carregar carrinho do localStorage:", error)
+    } finally {
+      setIsLoaded(true)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (isLoaded) {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(items))
+      } catch (error) {
+        console.error("Erro ao salvar carrinho no localStorage:", error)
+      }
+    }
+  }, [items, isLoaded])
 
   const addToCart = (event: Event, quantity: number) => {
     setItems((prevItems) => {
@@ -34,7 +67,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
           item.event.id === event.id ? { ...item, quantity: newQuantity } : item
         )
       } else {
-        return [...prevItems, { event, quantity }]
+        return [...prevItems, { event, quantity: Math.min(quantity, 4) }]
       }
     })
   }
@@ -46,11 +79,18 @@ export function CartProvider({ children }: { children: ReactNode }) {
   }
 
   const updateQuantity = (eventId: string, quantity: number) => {
+    if (quantity <= 0) {
+      removeFromCart(eventId)
+      return
+    }
+
+    if (quantity > 4) {
+      quantity = 4
+    }
+
     setItems((prevItems) =>
       prevItems.map((item) =>
-        item.event.id === eventId
-          ? { ...item, quantity: Math.min(quantity, 4) }
-          : item
+        item.event.id === eventId ? { ...item, quantity } : item
       )
     )
   }
@@ -72,6 +112,10 @@ export function CartProvider({ children }: { children: ReactNode }) {
       (total, item) => total + item.event.price * item.quantity,
       0
     )
+  }
+
+  if (!isLoaded) {
+    return null
   }
 
   return (

@@ -21,9 +21,6 @@ export default {
         secondary: {
           DEFAULT: "#244246",
         },
-        tertiary: {
-          DEFAULT: "#c5f911",
-        },
       },
       borderRadius: {
         lg: "0.5rem",
@@ -31,18 +28,13 @@ export default {
         sm: "calc(0.5rem - 4px)",
       },
       fontSize: {
-        // Heading
         "heading-lg": ["28px", { lineHeight: "100%", fontWeight: "700" }],
         "heading-md": ["20px", { lineHeight: "175%", fontWeight: "400" }],
         "heading-sm": ["12px", { lineHeight: "120%", fontWeight: "500" }],
 
-        // Body
         "body-md": ["16px", { lineHeight: "150%", fontWeight: "400" }],
         "body-sm": ["14px", { lineHeight: "150%", fontWeight: "400" }],
         "body-xs": ["12px", { lineHeight: "150%", fontWeight: "400" }],
-
-        // Tags
-        "body-tag": ["12px", { lineHeight: "100%", fontWeight: "400" }],
       },
     },
   },
