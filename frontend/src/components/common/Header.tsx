@@ -17,6 +17,8 @@ export function Header() {
         return "Compra de ingressos"
       case "/checkout":
         return "Finalize sua compra"
+      case "/confirmation":
+        return "Confirmação de compra"
       default:
         return "Compra de ingressos"
     }

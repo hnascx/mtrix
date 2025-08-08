@@ -1,8 +1,9 @@
 import { Header } from "@/components/common/Header"
 import { Space_Grotesk } from "next/font/google"
+import { CartProvider } from "../contexts/CartContext"
 import "./globals.css"
 import { MUIProvider } from "./providers"
-import { CartProvider } from "../contexts/CartContext"
+import { PurchaseProvider } from "../contexts/PurchaseContext"
 
 export const metadata = {
   title: "Mtrix · Sistema de Compra de Ingressos",
@@ -23,8 +24,10 @@ export default function RootLayout({
       <body className={`${spaceGrotesk.className} bg-background`}>
         <MUIProvider>
           <CartProvider>
-            <Header />
-            <main>{children}</main>
+            <PurchaseProvider>
+              <Header />
+              <main>{children}</main>
+            </PurchaseProvider>
           </CartProvider>
         </MUIProvider>
       </body>

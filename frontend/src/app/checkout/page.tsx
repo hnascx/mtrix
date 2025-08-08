@@ -3,13 +3,16 @@
 import { CartSummary } from "@/components/checkout/CartSummary"
 import { CheckoutForm } from "@/components/checkout/CheckoutForm"
 import { useCart } from "@/contexts/CartContext"
+import { usePurchase } from "@/contexts/PurchaseContext"
 import { Button, Container, Typography } from "@mui/material"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 
 export default function CheckoutPage() {
-  const { getTotalItems, clearCart } = useCart()
+  const { getTotalItems, items, clearCart } = useCart()
+  const { setPurchaseData } = usePurchase()
   const router = useRouter()
+
   const [formData, setFormData] = useState({
     fullName: "",
     cpf: "",
@@ -19,7 +22,7 @@ export default function CheckoutPage() {
     address: "",
     city: "",
     state: "",
-    paymentMethod: ""
+    paymentMethod: "",
   })
 
   if (getTotalItems() === 0) {
@@ -34,7 +37,7 @@ export default function CheckoutPage() {
         <Button
           variant="contained"
           onClick={() => router.push("/")}
-          className="mx-auto bg-secondary hover:bg-secondary/80 hover:shadow-none"
+          className="mx-auto bg-secondary shadow-none hover:bg-secondary/80 hover:shadow-none"
         >
           Ver Eventos
         </Button>
@@ -48,6 +51,17 @@ export default function CheckoutPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
+
+    // Salva os dados da compra no contexto
+    setPurchaseData({
+      customerName: formData.fullName,
+      address: formData.address,
+      city: formData.city,
+      state: formData.state,
+      paymentMethod: formData.paymentMethod,
+      items: items,
+    })
+
     clearCart()
     router.push("/confirmation")
   }
