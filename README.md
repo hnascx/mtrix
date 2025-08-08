@@ -61,7 +61,7 @@ Nesse projeto é desenvolvido o front-end completo de um sistema de compra de in
 ### Desenvolvimento Local
 ```bash
 # Clone o repositório
-git clone <repository-url>
+git clone https://github.com/hnascx/mtrix.git
 cd mtrix/frontend
 
 # Instale as dependências
